@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: kub-8
+spec:
+  selector:
+    matchLabels:
+      app: 8-2
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: 8-2
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.25.4
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - name: nginx-index-file
+            mountPath: /usr/share/nginx/html/
+          - name: secret
+            mountPath: /etc/secret-volume
+            readOnly: true
+      volumes:
+      - name: nginx-index-file
+        configMap:
+          name: 2-conf
+      - name: secret
+        secret:
+          secretName: secret-tls
+          optional: true

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: 1-conf
+  namespace: kub-8
+data:
+  HTTP_PORT: '1180'
+  index.html: |
+    <html>
+    <h1>TEST</h1>
+    </html>
